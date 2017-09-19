@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>幻灯片</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		li{
+			list-style: none;
+		}
+		#container{
+			width: 600px;
+			height: 300px;
+			background: #fff;
+			border: 1px solid #666;
+			border-radius: 10px;
+			margin: 0 auto;
+			padding: 10px;		
+		}
+		#img-lists{
+			position: relative;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+		#img-lists ul{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+		#img-lists li{
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+		#img-lists li img{
+			width: 100%;
+			height: 100%;
+		}
+		#count{
+			text-align: center;
+			position: relative;
+			top: 20px;
+		}
+		#count li{
+			display: inline-block;
+			padding: 2px 8px;
+			border: 1px solid #000;
+			margin: 0 5px;
+			cursor: pointer;
+		}
+		#count li.current{
+			background: #000;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="img-lists">
+			<ul>
+				<li><img src="image/kobe1.jpg" ></li>
+				<li><img src="image/kobe2.jpg" ></li>
+				<li><img src="image/kobe3.jpg" ></li>
+				<li><img src="image/kobe4.jpg" ></li>
+				<li><img src="image/kobe5.jpg" ></li>
+			</ul>
+		</div>
+
+		<ul id="count">
+			<li class="current">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		window.onload = function() {
+			var contain = document.getElementById("container");
+			var imgLists = contain.getElementsByTagName("ul")[0];
+			var img = imgLists.getElementsByTagName("img");
+			var countLi = document.getElementById("count").getElementsByTagName("li");
+			var timer = play = null;
+			var index = i = 0;
+			var flag = true;
+
+			//初始化
+			cutover();
+			autoPlay();
+
+			//鼠标切换
+			for (i = 0; i < countLi.length; i++) {
+				countLi[i].index = i;
+				countLi[i].onmouseover = function() {
+					index = this.index;
+					cutover();
+				}
+			}
+
+			//鼠标移入解除自动
+			contain.onmouseover = function() {
+				clearInterval(play);
+			}
+			//鼠标移除开启自动
+			contain.onmouseout = function() {
+				autoPlay();
+			}
+
+			function cutover() {
+				for(var i = 0; i < countLi.length; i++) countLi[i].className = "";
+				countLi[index].className = "current";
+				startMove(-(index * img[0].offsetHeight));
+			}
+			
+
+			//自动轮播功能
+			function autoPlay() {
+				play = setInterval(function(){
+					//判断播放顺序
+					flag ? index++ : index--;
+
+					//正序
+					index >= countLi.length && (index = countLi.length - 2, flag = false);
+
+					//倒序
+					index <= 0 && (index = 0, flag = true);
+					
+					cutover();
+
+				},3000)
+			};
+
+
+			function startMove(iTarget) {
+				clearInterval(timer);
+				timer = setInterval(function() {
+					imgMove(iTarget);
+				}, 20)
+			}
+
+			
+			function imgMove(iTarget) {
+				var iSpeed = (iTarget - imgLists.offsetTop) / 10;
+				iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+				imgLists.offsetTop == iTarget ? clearInterval(timer) : imgLists.style.top = imgLists.offsetTop + iSpeed + "px";
+			}
+
+		}
+	</script>
+</body>
+</html>

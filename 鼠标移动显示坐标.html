@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<style type="text/css" media="screen">
+		#box{position: relative; display: inline-block;}
+	</style>
+</head>
+<body>
+	<p id="box"></p>
+	<script type="text/javascript">
+		var box = document.getElementById('box');
+		document.onmousemove = function(event) {
+			var event = event || window.event;
+			box.innerHTML = "坐标：[" + event.clientX + "," + event.clientY + "]";
+			box.style.top = event.clientY + "px";
+			var iWidth = document.documentElement.offsetWidth - event.clientX;
+			box.style.left = (iWidth < box.offsetWidth + 20 ? event.clientX - box.offsetWidth - 20 : event.clientX + 20) + "px";
+		}
+	</script>
+</body>
+</html>

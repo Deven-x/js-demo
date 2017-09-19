@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>提示框</title>
+	<style type="text/css">		
+		body,div,h2,ul,li{margin:0;padding:0;}
+		body{font:12px/1.5 Tahoma;}
+		ul{list-style-type:none;}
+		#main{width:560px;border:1px solid #333;margin:10px auto;padding:0 0 10px 10px;}
+		#main h2{line-height:30px;text-align:center;margin-top:10px;}
+		#main ul:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+		#main ul{zoom:1;}
+		#main ul li{position:relative;float:left;border:1px solid #333;margin:10px 10px 0 0;display:inline;}
+		#main ul li img{position:absolute;top:-14px;left:-14px;display:none;border:2px solid #999;}
+		#main ul li a{color:#666;width:80px;height:80px;display:block;background:#f0f0f0;text-decoration:none;padding:10px;}
+		#main ul li a strong{display:block;}
+		.zindex{z-index:1;}
+	</style>
+</head>
+<body>
+	<div id="main">
+		<h2>名车车标展示</h2>
+		<ul>
+			<li>
+				<a href="javascript:;" title="BWM 宝马汽车"><strong>BWM</strong>宝马汽车</a>
+				<img src="image/1.jpg" alt="BWM 宝马汽车">
+			</li>
+			<li>
+				<a href="javascript:;" title="BWM 宝马汽车"><strong>BWM</strong>宝马汽车</a>
+				<img src="image/2.jpg" alt="BWM 宝马汽车">
+			</li>
+			<li>
+				<a href="javascript:;" title="BWM 宝马汽车"><strong>BWM</strong>宝马汽车</a>
+				<img src="image/3.jpg" alt="BWM 宝马汽车">
+			</li>
+			<li>
+				<a href="javascript:;" title="BWM 宝马汽车"><strong>BWM</strong>宝马汽车</a>
+				<img src="image/4.jpg" alt="BWM 宝马汽车">
+			</li>
+			<li>
+				<a href="javascript:;" title="BWM 宝马汽车"><strong>BWM</strong>宝马汽车</a>
+				<img src="image/5.jpg" alt="BWM 宝马汽车">
+			</li>
+			<li>
+				<a href="javascript:;" title="BWM 宝马汽车"><strong>BWM</strong>宝马汽车</a>
+				<img src="image/6.jpg" alt="BWM 宝马汽车">
+			</li>
+			<li>
+				<a href="javascript:;" title="BWM 宝马汽车"><strong>BWM</strong>宝马汽车</a>
+				<img src="image/7.jpg" alt="BWM 宝马汽车">
+			</li>
+			<li>
+				<a href="javascript:;" title="BWM 宝马汽车"><strong>BWM</strong>宝马汽车</a>
+				<img src="image/8.jpg" alt="BWM 宝马汽车">
+			</li>
+			<li>
+				<a href="javascript:;" title="BWM 宝马汽车"><strong>BWM</strong>宝马汽车</a>
+				<img src="image/9.jpg" alt="BWM 宝马汽车">
+			</li>
+			<li>
+				<a href="javascript:;" title="BWM 宝马汽车"><strong>BWM</strong>宝马汽车</a>
+				<img src="image/10.jpg" alt="BWM 宝马汽车">
+			</li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		window.onload = function() {
+			var oLi = document.getElementsByTagName('li');
+			var oA = document.getElementsByTagName('a');
+			var oImg = document.getElementsByTagName('img');
+			for(var i = 0; i < oLi.length; i++) {
+				oA[i].index = oImg[i].index = i;
+				oA[i].onmouseover = function() {
+					oLi[this.index].className = 'zindex';
+					oImg[this.index].style.display = 'block';
+				};
+				oImg[i].onmouseover = function() {
+					oLi[this.index].className = 'zindex';
+					this.style.display = 'block';
+				};
+				oImg[i].onmouseout = function() {
+					oLi[this.index].className = '';
+					this.style.display = 'none';
+				}
+			}
+		}
+	</script>
+</body>
+</html>
